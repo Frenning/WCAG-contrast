@@ -46,16 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contrast_Checker.cs">
+    <Compile Include="ContrastChecker.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Contrast_Checker.Designer.cs">
-      <DependentUpon>Contrast_Checker.cs</DependentUpon>
+    <Compile Include="ContrastChecker.Designer.cs">
+      <DependentUpon>ContrastChecker.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Contrast_Checker.resx">
-      <DependentUpon>Contrast_Checker.cs</DependentUpon>
+    <EmbeddedResource Include="ContrastChecker.resx">
+      <DependentUpon>ContrastChecker.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

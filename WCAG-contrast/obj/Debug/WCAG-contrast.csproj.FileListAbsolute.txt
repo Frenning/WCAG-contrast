@@ -1,10 +1,10 @@
 C:\Users\fredrikfr\Source\Repos\WCAG-contrast\WCAG-contrast\bin\Debug\WCAG-contrast.exe.config
 C:\Users\fredrikfr\Source\Repos\WCAG-contrast\WCAG-contrast\bin\Debug\WCAG-contrast.exe
 C:\Users\fredrikfr\Source\Repos\WCAG-contrast\WCAG-contrast\bin\Debug\WCAG-contrast.pdb
+C:\Users\fredrikfr\Source\Repos\WCAG-contrast\WCAG-contrast\obj\Debug\WCAG_contrast.ContrastForm.resources
 C:\Users\fredrikfr\Source\Repos\WCAG-contrast\WCAG-contrast\obj\Debug\WCAG_contrast.Properties.Resources.resources
 C:\Users\fredrikfr\Source\Repos\WCAG-contrast\WCAG-contrast\obj\Debug\WCAG-contrast.csproj.GenerateResource.cache
 C:\Users\fredrikfr\Source\Repos\WCAG-contrast\WCAG-contrast\obj\Debug\WCAG-contrast.csproj.CoreCompileInputs.cache
 C:\Users\fredrikfr\Source\Repos\WCAG-contrast\WCAG-contrast\obj\Debug\WCAG-contrast.exe
 C:\Users\fredrikfr\Source\Repos\WCAG-contrast\WCAG-contrast\obj\Debug\WCAG-contrast.pdb
 C:\Users\fredrikfr\Source\Repos\WCAG-contrast\WCAG-contrast\obj\Debug\WCAG-contrast.csprojAssemblyReference.cache
-C:\Users\fredrikfr\Source\Repos\WCAG-contrast\WCAG-contrast\obj\Debug\WCAG_contrast.ContrastForm.resources
