@@ -32,8 +32,9 @@
             this.numericGreen1 = new System.Windows.Forms.NumericUpDown();
             this.numericBlue1 = new System.Windows.Forms.NumericUpDown();
             this.textBoxContrast1 = new System.Windows.Forms.TextBox();
-            this.textBoxColor = new System.Windows.Forms.RichTextBox();
-            this.textBoxContrastColor = new System.Windows.Forms.TextBox();
+            this.textBoxColor = new System.Windows.Forms.TextBox();
+            this.textBoxColor1 = new System.Windows.Forms.TextBox();
+            this.textBoxContrastColor1 = new System.Windows.Forms.TextBox();
             this.labelRed1 = new System.Windows.Forms.Label();
             this.labelGreen1 = new System.Windows.Forms.Label();
             this.labelBlue1 = new System.Windows.Forms.Label();
@@ -43,7 +44,9 @@
             this.textBoxHex1 = new System.Windows.Forms.TextBox();
             this.labelHex1 = new System.Windows.Forms.Label();
             this.labelContrast1 = new System.Windows.Forms.Label();
-            this.labelContrastColor = new System.Windows.Forms.Label();
+            this.labelColor1 = new System.Windows.Forms.Label();
+            this.labelColor = new System.Windows.Forms.Label();
+            this.labelContrastColor1 = new System.Windows.Forms.Label();
             this.trackbarRed = new System.Windows.Forms.TrackBar();
             this.trackbarGreen = new System.Windows.Forms.TrackBar();
             this.trackbarBlue = new System.Windows.Forms.TrackBar();
@@ -69,7 +72,7 @@
             this.textBoxHex1.Size = new System.Drawing.Size(50, 20);
             this.textBoxHex1.Text = "#000000";
             this.textBoxHex1.TabIndex = 1;
-            this.textBoxHex1.Leave += ConvertHexToInt;
+            this.textBoxHex1.Leave += ConvertHexToColor;
             // 
             // labelRed1
             // 
@@ -106,7 +109,7 @@
             this.numericRed1.Name = "numericRed1";
             this.numericRed1.Size = new System.Drawing.Size(55, 20);
             this.numericRed1.TabIndex = 2;
-            this.numericRed1.ValueChanged += ConvertIntToHex;
+            this.numericRed1.ValueChanged += ConvertColorToHex;
             // 
             // numericGreen1
             // 
@@ -119,7 +122,7 @@
             this.numericGreen1.Name = "numericGreen1";
             this.numericGreen1.Size = new System.Drawing.Size(53, 20);
             this.numericGreen1.TabIndex = 3;
-            this.numericGreen1.ValueChanged += ConvertIntToHex;
+            this.numericGreen1.ValueChanged += ConvertColorToHex;
             // 
             // numericBlue1
             // 
@@ -132,105 +135,39 @@
             this.numericBlue1.Name = "numericBlue1";
             this.numericBlue1.Size = new System.Drawing.Size(53, 20);
             this.numericBlue1.TabIndex = 4;
-            this.numericBlue1.ValueChanged += ConvertIntToHex;
+            this.numericBlue1.ValueChanged += ConvertColorToHex;
             // 
-            // labelContrast1
+            // labelColor1
             // 
-            this.labelContrast1.AutoSize = true;
-            this.labelContrast1.Location = new System.Drawing.Point(360, 40);
-            this.labelContrast1.Name = "labelContrast1";
-            this.labelContrast1.Size = new System.Drawing.Size(32, 13);
-            this.labelContrast1.Text = "Contrast";
+            this.labelColor1.AutoSize = true;
+            this.labelColor1.Location = new System.Drawing.Point(270, 40);
+            this.labelColor1.Name = "labelColor1";
+            this.labelColor1.Size = new System.Drawing.Size(32, 13);
+            this.labelColor1.Text = "Color";
             // 
-            // textBoxContrast1
+            // textBoxColor1
             // 
-            this.textBoxContrast1.Location = new System.Drawing.Point(360, 60);
-            this.textBoxContrast1.Name = "textBoxContrast1";
-            this.textBoxContrast1.Size = new System.Drawing.Size(100, 20);
-            this.textBoxContrast1.TabIndex = 5;
-            this.textBoxContrast1.ReadOnly = true;
-
+            this.textBoxColor1.Location = new System.Drawing.Point(270, 60);
+            this.textBoxColor1.Name = "textBoxColor1";
+            this.textBoxColor1.Size = new System.Drawing.Size(75, 20);
+            this.textBoxColor1.TabIndex = 9;
+            this.textBoxColor1.ReadOnly = true;
             // 
-            // labelRedTrackbar
+            // labelContrastColor1
             // 
-            this.labelRedTrackbar.AutoSize = true;
-            this.labelRedTrackbar.Location = new System.Drawing.Point(520, 230);
-            this.labelRedTrackbar.Name = "labelRedTrackbar";
-            this.labelRedTrackbar.Size = new System.Drawing.Size(27, 13);
-            this.labelRedTrackbar.Text = "Red: 0";
+            this.labelContrastColor1.AutoSize = true;
+            this.labelContrastColor1.Location = new System.Drawing.Point(380, 40);
+            this.labelContrastColor1.Name = "labelContrastColor1";
+            this.labelContrastColor1.Size = new System.Drawing.Size(32, 13);
+            this.labelContrastColor1.Text = "Contrast";
             // 
-            // labelGreenTrackbar
+            // textBoxContrastColor1
             // 
-            this.labelGreenTrackbar.AutoSize = true;
-            this.labelGreenTrackbar.Location = new System.Drawing.Point(520, 300);
-            this.labelGreenTrackbar.Name = "labelGreenTrackbar";
-            this.labelGreenTrackbar.Size = new System.Drawing.Size(36, 13);
-            this.labelGreenTrackbar.Text = "Green: 0";
-            // 
-            // labelBlueTrackbar
-            // 
-            this.labelBlueTrackbar.AutoSize = true;
-            this.labelBlueTrackbar.Location = new System.Drawing.Point(520, 370);
-            this.labelBlueTrackbar.Name = "labelBlueTrackbar";
-            this.labelBlueTrackbar.Size = new System.Drawing.Size(28, 13);
-            this.labelBlueTrackbar.Text = "Blue: 0";
-            // 
-            // trackbarRed
-            // 
-            this.trackbarRed.AutoSize = true;
-            this.trackbarRed.Location = new System.Drawing.Point(520, 250);
-            this.trackbarRed.Name = "trackbarRed";
-            this.trackbarRed.Size = new System.Drawing.Size(200, 25);
-            this.trackbarRed.Maximum = 255;
-            this.trackbarRed.Minimum = 0;
-            this.trackbarRed.TabIndex = 8;
-            this.trackbarRed.ValueChanged += ChangeBgColor;
-            // 
-            // trackbarGreen
-            // 
-            this.trackbarGreen.AutoSize = true;
-            this.trackbarGreen.Location = new System.Drawing.Point(520, 320);
-            this.trackbarGreen.Name = "trackbarGreen";
-            this.trackbarGreen.Size = new System.Drawing.Size(200, 25);
-            this.trackbarGreen.Maximum = 255;
-            this.trackbarGreen.Minimum = 0;
-            this.trackbarGreen.TabIndex = 8;
-            this.trackbarGreen.ValueChanged += ChangeBgColor;
-            // 
-            // trackbarBlue
-            // 
-            this.trackbarBlue.AutoSize = true;
-            this.trackbarBlue.Location = new System.Drawing.Point(520, 390);
-            this.trackbarBlue.Name = "trackbarBlue";
-            this.trackbarBlue.Size = new System.Drawing.Size(200, 25);
-            this.trackbarBlue.Maximum = 255;
-            this.trackbarBlue.Minimum = 0;
-            this.trackbarBlue.TabIndex = 8;
-            this.trackbarBlue.ValueChanged += ChangeBgColor;
-            // 
-            // textBoxColor
-            // 
-            this.textBoxColor.Location = new System.Drawing.Point(520, 60);
-            this.textBoxColor.Name = "textBoxColor";
-            this.textBoxColor.Size = new System.Drawing.Size(200, 150);
-            this.textBoxColor.TabStop = false;
-            this.textBoxColor.ReadOnly = true;
-            // 
-            // labelContrastColor
-            // 
-            this.labelContrastColor.AutoSize = true;
-            this.labelContrastColor.Location = new System.Drawing.Point(780, 40);
-            this.labelContrastColor.Name = "labelContrastColor";
-            this.labelContrastColor.Size = new System.Drawing.Size(32, 13);
-            this.labelContrastColor.Text = "Contrast Color";
-            // 
-            // textBoxContrastColor
-            // 
-            this.textBoxContrastColor.Location = new System.Drawing.Point(780, 60);
-            this.textBoxContrastColor.Name = "textBoxContrastColor";
-            this.textBoxContrastColor.Size = new System.Drawing.Size(100, 20);
-            this.textBoxContrastColor.TabIndex = 9;
-            this.textBoxContrastColor.ReadOnly = true;
+            this.textBoxContrastColor1.Location = new System.Drawing.Point(380, 60);
+            this.textBoxContrastColor1.Name = "textBoxContrastColor1";
+            this.textBoxContrastColor1.Size = new System.Drawing.Size(75, 20);
+            this.textBoxContrastColor1.TabIndex = 9;
+            this.textBoxContrastColor1.ReadOnly = true;
 
             // 
             // addColorButton
@@ -241,6 +178,96 @@
             this.addColorButton.TabIndex = 7;
             this.addColorButton.Text = "Add Color";
             this.addColorButton.Click += AddColorBoxes;
+            // 
+            // labelContrast1
+            // 
+            this.labelContrast1.AutoSize = true;
+            this.labelContrast1.Location = new System.Drawing.Point(800, 40);
+            this.labelContrast1.Name = "labelContrast1";
+            this.labelContrast1.Size = new System.Drawing.Size(32, 13);
+            this.labelContrast1.Text = "Manual Contrast 1";
+            // 
+            // textBoxContrast1
+            // 
+            this.textBoxContrast1.Location = new System.Drawing.Point(800, 60);
+            this.textBoxContrast1.Name = "textBoxContrast1";
+            this.textBoxContrast1.Size = new System.Drawing.Size(100, 20);
+            this.textBoxContrast1.TabIndex = 5;
+            this.textBoxContrast1.ReadOnly = true;
+            // 
+            // labelColor
+            // 
+            this.labelColor.AutoSize = true;
+            this.labelColor.Location = new System.Drawing.Point(950, 40);
+            this.labelColor.Name = "labelColor";
+            this.labelColor.Size = new System.Drawing.Size(32, 13);
+            this.labelColor.Text = "Manual Color";
+            // 
+            // textBoxColor
+            // 
+            this.textBoxColor.AutoSize = false;
+            this.textBoxColor.Location = new System.Drawing.Point(950, 60);
+            this.textBoxColor.Name = "textBoxColor";
+            this.textBoxColor.Size = new System.Drawing.Size(200, 150);
+            this.textBoxColor.TabStop = false;
+            this.textBoxColor.ReadOnly = true;
+            // 
+            // labelRedTrackbar
+            // 
+            this.labelRedTrackbar.AutoSize = true;
+            this.labelRedTrackbar.Location = new System.Drawing.Point(950, 230);
+            this.labelRedTrackbar.Name = "labelRedTrackbar";
+            this.labelRedTrackbar.Size = new System.Drawing.Size(27, 13);
+            this.labelRedTrackbar.Text = "Red: 0";
+            // 
+            // labelGreenTrackbar
+            // 
+            this.labelGreenTrackbar.AutoSize = true;
+            this.labelGreenTrackbar.Location = new System.Drawing.Point(950, 300);
+            this.labelGreenTrackbar.Name = "labelGreenTrackbar";
+            this.labelGreenTrackbar.Size = new System.Drawing.Size(36, 13);
+            this.labelGreenTrackbar.Text = "Green: 0";
+            // 
+            // labelBlueTrackbar
+            // 
+            this.labelBlueTrackbar.AutoSize = true;
+            this.labelBlueTrackbar.Location = new System.Drawing.Point(950, 370);
+            this.labelBlueTrackbar.Name = "labelBlueTrackbar";
+            this.labelBlueTrackbar.Size = new System.Drawing.Size(28, 13);
+            this.labelBlueTrackbar.Text = "Blue: 0";
+            // 
+            // trackbarRed
+            // 
+            this.trackbarRed.AutoSize = true;
+            this.trackbarRed.Location = new System.Drawing.Point(950, 250);
+            this.trackbarRed.Name = "trackbarRed";
+            this.trackbarRed.Size = new System.Drawing.Size(200, 25);
+            this.trackbarRed.Maximum = 255;
+            this.trackbarRed.Minimum = 0;
+            this.trackbarRed.TabIndex = 8;
+            this.trackbarRed.ValueChanged += ChangeBgColor;
+            // 
+            // trackbarGreen
+            // 
+            this.trackbarGreen.AutoSize = true;
+            this.trackbarGreen.Location = new System.Drawing.Point(950, 320);
+            this.trackbarGreen.Name = "trackbarGreen";
+            this.trackbarGreen.Size = new System.Drawing.Size(200, 25);
+            this.trackbarGreen.Maximum = 255;
+            this.trackbarGreen.Minimum = 0;
+            this.trackbarGreen.TabIndex = 8;
+            this.trackbarGreen.ValueChanged += ChangeBgColor;
+            // 
+            // trackbarBlue
+            // 
+            this.trackbarBlue.AutoSize = true;
+            this.trackbarBlue.Location = new System.Drawing.Point(950, 390);
+            this.trackbarBlue.Name = "trackbarBlue";
+            this.trackbarBlue.Size = new System.Drawing.Size(200, 25);
+            this.trackbarBlue.Maximum = 255;
+            this.trackbarBlue.Minimum = 0;
+            this.trackbarBlue.TabIndex = 8;
+            this.trackbarBlue.ValueChanged += ChangeBgColor;
 
             // 
             // ContrastForm
@@ -249,7 +276,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1200, 600);
             this.Controls.Add(this.labelContrast1);
-            this.Controls.Add(this.labelContrastColor);
+            this.Controls.Add(this.labelColor1);
+            this.Controls.Add(this.labelColor);
+            this.Controls.Add(this.labelContrastColor1);
             this.Controls.Add(this.labelHex1);
             this.Controls.Add(this.textBoxHex1);
             this.Controls.Add(this.labelBlue1);
@@ -257,7 +286,8 @@
             this.Controls.Add(this.labelRed1);
             this.Controls.Add(this.textBoxContrast1);
             this.Controls.Add(this.textBoxColor);
-            this.Controls.Add(this.textBoxContrastColor);
+            this.Controls.Add(this.textBoxColor1);
+            this.Controls.Add(this.textBoxContrastColor1);
             this.Controls.Add(this.numericBlue1);
             this.Controls.Add(this.numericGreen1);
             this.Controls.Add(this.numericRed1);
@@ -284,8 +314,9 @@
         private System.Windows.Forms.NumericUpDown numericGreen1;
         private System.Windows.Forms.NumericUpDown numericBlue1;
         private System.Windows.Forms.TextBox textBoxContrast1;
-        private System.Windows.Forms.RichTextBox textBoxColor;
-        private System.Windows.Forms.TextBox textBoxContrastColor;
+        private System.Windows.Forms.TextBox textBoxColor;
+        private System.Windows.Forms.TextBox textBoxColor1;
+        private System.Windows.Forms.TextBox textBoxContrastColor1;
         private System.Windows.Forms.Label labelRed1;
         private System.Windows.Forms.Label labelGreen1;
         private System.Windows.Forms.Label labelBlue1;
@@ -295,7 +326,9 @@
         private System.Windows.Forms.TextBox textBoxHex1;
         private System.Windows.Forms.Label labelHex1;
         private System.Windows.Forms.Label labelContrast1;
-        private System.Windows.Forms.Label labelContrastColor;
+        private System.Windows.Forms.Label labelColor1;
+        private System.Windows.Forms.Label labelColor;
+        private System.Windows.Forms.Label labelContrastColor1;
         private System.Windows.Forms.TrackBar trackbarRed;
         private System.Windows.Forms.TrackBar trackbarGreen;
         private System.Windows.Forms.TrackBar trackbarBlue;

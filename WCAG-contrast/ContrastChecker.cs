@@ -13,11 +13,14 @@ namespace WCAG_contrast
 {
     public partial class ContrastForm : Form
     {
+        private Utility utility = new Utility();
+
         private List<Color> rgbList = new List<Color>();
         private List<Label> labelList = new List<Label>();
-        private List<Label> labelContrastList = new List<Label>();
         private List<TextBox> textBoxList = new List<TextBox>();
         private List<TextBox> textBoxContrastList = new List<TextBox>();
+        private List<TextBox> textBoxColorList = new List<TextBox>();
+        private List<TextBox> textBoxContrastColorList = new List<TextBox>();
         private List<NumericUpDown> numericRedList = new List<NumericUpDown>();
         private List<NumericUpDown> numericGreenList = new List<NumericUpDown>();
         private List<NumericUpDown> numericBlueList = new List<NumericUpDown>();
@@ -26,9 +29,10 @@ namespace WCAG_contrast
         {
             InitializeComponent();
             labelList.Add(labelHex1);
-            labelContrastList.Add(labelContrast1);
             textBoxList.Add(textBoxHex1);
+            textBoxColorList.Add(textBoxColor1);
             textBoxContrastList.Add(textBoxContrast1);
+            textBoxContrastColorList.Add(textBoxContrastColor1);
             numericRedList.Add(numericRed1);
             numericGreenList.Add(numericGreen1);
             numericBlueList.Add(numericBlue1);
@@ -39,12 +43,14 @@ namespace WCAG_contrast
             if (labelList.Count == 0)
             {
                 labelList.Add(labelHex1);
-                labelContrastList.Add(labelContrast1);
                 textBoxList.Add(textBoxHex1);
+                textBoxColorList.Add(textBoxColor1);
                 textBoxContrastList.Add(textBoxContrast1);
+                textBoxContrastColorList.Add(textBoxContrastColor1);
                 numericRedList.Add(numericRed1);
                 numericGreenList.Add(numericGreen1);
                 numericBlueList.Add(numericBlue1);
+                rgbList.Add(new Color());
             }
             if (labelList.Count < 6)
             {
@@ -59,30 +65,36 @@ namespace WCAG_contrast
                 labelList.Add(labelHex);
 
                 AddTextBox(new Point(20, labelList.Last().Location.Y + 20), "textBoxHex" + (labelList.IndexOf(labelList.Last()) + 2), "#000000", 
-                    new Size(50, 20), ConvertHexToInt);
+                    new Size(50, 20), ConvertHexToColor);
 
                 AddLabel(new Point(labelList.Last().Location.X + 60, labelList.Last().Location.Y), "labelRed", "Red",
                     new Size(27, 13));
                 AddNumericUpDown(new Point(labelList.Last().Location.X + 60, labelList.Last().Location.Y + 20), "numericRed", 
-                    new Size(55, 20), ConvertIntToHex);
+                    new Size(55, 20), ConvertColorToHex);
                 AddLabel(new Point(labelList.Last().Location.X + 120, labelList.Last().Location.Y), "labelGreen", "Green",
                     new Size(27, 13));
                 AddNumericUpDown(new Point(labelList.Last().Location.X + 120, labelList.Last().Location.Y + 20), "numericGreen",
-                    new Size(55, 20), ConvertIntToHex);
+                    new Size(55, 20), ConvertColorToHex);
                 AddLabel(new Point(labelList.Last().Location.X + 180, labelList.Last().Location.Y), "labelBlue", "Blue",
                     new Size(27, 13));
                 AddNumericUpDown(new Point(labelList.Last().Location.X + 180, labelList.Last().Location.Y + 20), "numericBlue",
-                    new Size(55, 20), ConvertIntToHex);
+                    new Size(55, 20), ConvertColorToHex);
 
-                AddLabel(new Point(labelList.Last().Location.X + 340, labelList.Last().Location.Y), "labelContrast", "Contrast", 
+                AddLabel(new Point(labelList.Last().Location.X + 250, labelList.Last().Location.Y), "labelColor", "Color",
                     new Size(27, 13));
-                AddTextBoxContrast(new Point(labelList.Last().Location.X + 340, labelList.Last().Location.Y + 20), "textBoxContrast" + (labelList.IndexOf(labelList.Last()) + 2), "",
+                AddTextBoxColor(new Point(labelList.Last().Location.X + 250, labelList.Last().Location.Y + 20), "textBoxColor" + (labelList.IndexOf(labelList.Last()) + 2), "",
+                    new Size(75, 20));
+
+                AddLabel(new Point(labelList.Last().Location.X + 360, labelList.Last().Location.Y), "labelContrastColor", "Contrast " + (labelList.IndexOf(labelList.Last()) + 1),
+                    new Size(27, 13));
+                AddTextBoxContrastColor(new Point(labelList.Last().Location.X + 360, labelList.Last().Location.Y + 20), "textBoxContrastColor" + (labelList.IndexOf(labelList.Last()) + 2), "",
+                    new Size(75, 20));
+
+                AddLabel(new Point(labelList.Last().Location.X + 780, labelList.Last().Location.Y), "labelContrast", "Manual Contrast " + (labelList.IndexOf(labelList.Last()) + 1),
+                    new Size(27, 13));
+                AddTextBoxContrast(new Point(labelList.Last().Location.X + 780, labelList.Last().Location.Y + 20), "textBoxContrast" + (labelList.IndexOf(labelList.Last()) + 2), "",
                     new Size(100, 20));
 
-                AddLabel(new Point(labelList.Last().Location.X + 760, labelList.Last().Location.Y), "labelContrastColor", "Contrast Color",
-                    new Size(27, 13));
-                AddTextBoxContrastColor(new Point(labelList.Last().Location.X + 760, labelList.Last().Location.Y + 20), "textBoxContrastColor" + (labelList.IndexOf(labelList.Last()) + 2), "",
-                    new Size(100, 20));
                 rgbList.Add(new Color());
             }
         }
@@ -94,9 +106,7 @@ namespace WCAG_contrast
             label.Name = name;
             label.Size = size;
             label.Text = text;
-            Controls.Add(label);
-            if (text == "Contrast")
-                labelContrastList.Add(label);               
+            Controls.Add(label);              
         }
         private void AddTextBox(Point point, string name, string text, Size size, EventHandler functionName)
         {
@@ -109,6 +119,18 @@ namespace WCAG_contrast
             textBox.Leave += functionName;
             Controls.Add(textBox);
             textBoxList.Add(textBox); 
+        }
+        private void AddTextBoxColor(Point point, string name, string text, Size size)
+        {
+            TextBox textBox = new TextBox();
+            textBox.Location = point;
+            textBox.Name = name;
+            textBox.Size = size;
+            textBox.Text = text;
+            textBox.TabIndex = 6;
+            Controls.Add(textBox);
+            textBox.ReadOnly = true;
+            textBoxColorList.Add(textBox);
         }
         private void AddTextBoxContrast(Point point, string name, string text, Size size)
         {
@@ -132,7 +154,9 @@ namespace WCAG_contrast
             textBox.TabIndex = 6;
             Controls.Add(textBox);
             textBox.ReadOnly = true;
+            textBoxContrastColorList.Add(textBox);
         }
+
         private void AddNumericUpDown(Point point, string name, Size size, EventHandler functionName)
         {
             NumericUpDown numericUpDown = new NumericUpDown();
@@ -151,20 +175,22 @@ namespace WCAG_contrast
             else if (name.Contains("numericGreen")) numericGreenList.Add(numericUpDown);
             else if (name.Contains("numericBlue")) numericBlueList.Add(numericUpDown); 
         }
-        private void ChangeBgColor(object sender, EventArgs e)
+        private void ConvertHexToColor(Object sender, EventArgs e)
         {
-            Color color = Color.FromArgb(trackbarRed.Value, trackbarGreen.Value, trackbarBlue.Value);
-            labelRedTrackbar.Text = "Red: " + trackbarRed.Value;
-            labelGreenTrackbar.Text = "Green: " + trackbarGreen.Value;
-            labelBlueTrackbar.Text = "Blue: " + trackbarBlue.Value;
-            SetBGColor(color);
+            Regex re = new Regex(@"^#[A-Fa-f0-9]{6}$");
+            int index = textBoxList.IndexOf((TextBox)sender);
+            Color color = new Color();
+            if (!re.IsMatch(textBoxList[index].Text)) return;
+            color = utility.HexToColor(textBoxList[index].Text);
+
+            numericRedList[index].Value = color.R;
+            numericGreenList[index].Value = color.G;
+            numericBlueList[index].Value = color.B;
+            rgbList[index] = Color.FromArgb(color.R, color.G, color.B);
             CalculateContrast();
+            TestContrastColor(index);
         }
-        private void SetBGColor(Color color)
-        {
-            textBoxColor.BackColor = color;
-        }
-        private void ConvertIntToHex(object sender, EventArgs e)
+        private void ConvertColorToHex(object sender, EventArgs e)
         {
             int index = 0;
             NumericUpDown temp = (NumericUpDown)sender;
@@ -177,73 +203,78 @@ namespace WCAG_contrast
 
 
             rgbList[index] = Color.FromArgb((int)numericRedList[index].Value, (int)numericGreenList[index].Value, (int)numericBlueList[index].Value);
-            IntToHex(index);
-            
+            var hex = utility.ColorToHex(rgbList[index]);
+            textBoxList[index].Text = hex;
+            CalculateContrast();
+            TestContrastColor(index);
+        }
+        private void ChangeBgColor(object sender, EventArgs e)
+        {
+            Color color = Color.FromArgb(trackbarRed.Value, trackbarGreen.Value, trackbarBlue.Value);
+            labelRedTrackbar.Text = "Red: " + trackbarRed.Value;
+            labelGreenTrackbar.Text = "Green: " + trackbarGreen.Value;
+            labelBlueTrackbar.Text = "Blue: " + trackbarBlue.Value;
+            utility.SetTextBoxBGColor(textBoxColor, color);
             CalculateContrast();
         }
-        private void IntToHex(int index)
+
+        public void SetContrastColor()
         {
-            Color color = new Color();
-            string hex;
+            int index = 0;
+            foreach (Color color in rgbList)
+            {
+                textBoxColorList[index].BackColor = color;
+                index++;
+            }
 
-            color = Color.FromArgb(rgbList[index].R, rgbList[index].G, rgbList[index].B);
-
-            hex = "#" + color.R.ToString("X2") + color.G.ToString("X2") + color.B.ToString("X2");
-            textBoxList[index].Text = hex;
         }
-        private void CalculateContrast()
+        public void TestContrastColor(int index)
+        {
+            Random rand = new Random();
+            Color color = new Color();
+
+            int x = (int)numericRedList[index].Value + (int)numericGreenList[index].Value + (int)numericBlueList[index].Value;
+            int i = 0;
+            double contrast2 = 0;
+            if (x < 765 / 2)
+            {
+                while (contrast2 < 4.5 && i < 100)
+                {
+                    color = Color.FromArgb(rand.Next(100, 255), rand.Next(100, 255), rand.Next(100, 255));
+                    contrast2 = utility.GetContrast(rgbList[index], color);
+                    if (contrast2 > 4.5) break;
+                    i++;
+                }
+                textBoxContrastColorList[index].ForeColor = Color.Black;
+            }
+            else
+            {
+                while (contrast2 < 4.5 && i < 100)
+                {
+                    color = Color.FromArgb(rand.Next(0, 100), rand.Next(0, 100), rand.Next(0, 100));
+                    contrast2 = utility.GetContrast(rgbList[0], color);
+                    if (contrast2 > 4.5) break;
+                    i++;
+                }
+                textBoxContrastColorList[index].ForeColor = Color.White;
+            }
+            textBoxContrastColorList[index].BackColor = color;
+            textBoxContrastColorList[index].Text = contrast2.ToString();
+
+            
+        }
+        public void CalculateContrast()
         {
             var index = 0;
             foreach (TextBox contrastBox in textBoxContrastList)
             {
                 rgbList[index] = Color.FromArgb((int)numericRedList[index].Value, (int)numericGreenList[index].Value, (int)numericBlueList[index].Value);
-
-                GetContrast(rgbList[index]);
+                Color color = Color.FromArgb(trackbarRed.Value, trackbarGreen.Value, trackbarBlue.Value);
+                this.contrast = utility.GetContrast(rgbList[index], color);
                 textBoxContrastList[index].Text = contrast.ToString();
                 index++;
             }
+            SetContrastColor();
         }
-        private void ConvertHexToInt(Object sender, EventArgs e)
-        {
-            Regex re = new Regex(@"^#[A-Fa-f0-9]{6}$");
-            int index = textBoxList.IndexOf((TextBox)sender);
-
-            if (!re.IsMatch(textBoxList[index].Text)) return;
-            HexToInt(index);
-
-            CalculateContrast();
-        }
-        private void HexToInt(int index)
-        {
-            ColorConverter colorConverter = new ColorConverter();
-            Color color = new Color();
-                       
-            color = (Color)colorConverter.ConvertFromString(textBoxList[index].Text);
-            rgbList[index] = Color.FromArgb(color.R, color.G, color.B);
-            numericRedList[index].Value = color.R;
-            numericGreenList[index].Value = color.G;
-            numericBlueList[index].Value = color.B;
-        }
-        private double Luminanace(double v)
-        {
-            v /= 255;
-            return v <= 0.03928 ? v / 12.92 : Math.Pow((v + 0.055) / 1.055, 2.4);            
-        }
-
-        private void GetContrast(Color color)
-        {
-            var L1 = (Luminanace(color.R) * 0.2126 +
-                      Luminanace(color.G) * 0.7152 +
-                      Luminanace(color.B) * 0.0722) + 0.05;
-
-            var L2 = (Luminanace(trackbarRed.Value) * 0.2126 +
-                      Luminanace(trackbarGreen.Value) * 0.7152 +
-                      Luminanace(trackbarBlue.Value) * 0.0722) + 0.05;
-            if(L1 > L2)
-                this.contrast = (L1 / L2);
-            else
-                this.contrast = (L2 / L1);
-        }
-
     }
 }
